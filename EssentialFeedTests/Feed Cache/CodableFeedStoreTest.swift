@@ -189,7 +189,7 @@ final class CodableFeedStoreTests: XCTestCase, FailableFeedStore {
     }
 
     func test_delete_deliversErrorOnDeletionError() {
-        let noDeletePermissionURL = cachesDirectory()
+        let noDeletePermissionURL = systemCachesDirectory()
         let sut = makeSUT(storeURL: noDeletePermissionURL)
 
         let exp = expectation(description: "wait for exp")
@@ -232,6 +232,10 @@ final class CodableFeedStoreTests: XCTestCase, FailableFeedStore {
         return FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first!
     }
 
+    private func systemCachesDirectory() -> URL {
+        return FileManager.default.urls(for: .cachesDirectory, in: .systemDomainMask).first!
+    }
+
     private func makeSUT(storeURL: URL? = nil, file: StaticString = #filePath, line: UInt = #line) -> CodableFeedStore {
         let sut = CodableFeedStore(storeURL: storeURL ?? testStoreURL())
         trackForMemoryLeaks(sut, file: file, line: line)
@@ -258,10 +262,20 @@ final class CodableFeedStoreTests: XCTestCase, FailableFeedStore {
 
     private func setUpEmptyStoreState() {
         deleteStoreArtificats()
+        createCachesDirectory()
     }
 
     private func undoStoreSideEffects() {
         deleteStoreArtificats()
+    }
+
+    private func createCachesDirectory() {
+        try? FileManager
+            .default
+            .createDirectory(
+                atPath: cachesDirectory().path,
+                withIntermediateDirectories: true,
+                attributes: nil)
     }
 
     private func deleteStoreArtificats() {
