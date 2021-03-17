@@ -1,0 +1,10 @@
+/* 
+  Feed.strings
+  EssentialFeed
+
+  Created by Srinivasan Rajendran on 2021-03-11.
+  
+*/
+
+"FEED_VIEW_TITLE" = "Hur mar du";
+"FEED_VIEW_CONNECTION_ERROR" = "itte bra";

@@ -15,15 +15,16 @@ protocol FeedImageCellControllerDelegate {
 public final class FeedImageCellController: FeedImageView {
 
     private let delegate: FeedImageCellControllerDelegate
-    private lazy var cell = FeedItemCell()
+    private var cell: FeedItemCell?
 
     init(delegate: FeedImageCellControllerDelegate) {
         self.delegate = delegate
     }
 
-    func view() -> UITableViewCell {
+    func view(in tableView: UITableView) -> UITableViewCell {
+        cell = tableView.dequeueReusableCell()
         delegate.didRequestImage()
-        return cell
+        return cell!
     }
 
     func preload() {
@@ -31,17 +32,21 @@ public final class FeedImageCellController: FeedImageView {
     }
 
     func cancelLoad() {
+        releaseCellForReuse()
         delegate.didCancelImageRequest()
     }
 
     func display(_ viewModel: FeedImageViewModel<UIImage>) {
-        cell.locationContainer.isHidden = !viewModel.hasLocation
-        cell.locationLabel.text = viewModel.location
-        cell.descriptionLabel.text = viewModel.description
-        cell.feedImageView.image = viewModel.image
-        viewModel.isLoading ? cell.feedImageContainer.startShimmering() : cell.feedImageContainer.stopShimmering()
-        cell.retryButton.isHidden = !viewModel.shouldRetry
-        cell.onRetry = delegate.didRequestImage
+        cell?.locationContainer.isHidden = !viewModel.hasLocation
+        cell?.locationLabel.text = viewModel.location
+        cell?.descriptionLabel.text = viewModel.description
+        cell?.feedImageView.image = viewModel.image
+        viewModel.isLoading ? cell?.feedImageContainer.startShimmering() : cell?.feedImageContainer.stopShimmering()
+        cell?.retryButton.isHidden = !viewModel.shouldRetry
+        cell?.onRetry = delegate.didRequestImage
+    }
+
+    private func releaseCellForReuse() {
+        cell = nil
     }
 }
-
