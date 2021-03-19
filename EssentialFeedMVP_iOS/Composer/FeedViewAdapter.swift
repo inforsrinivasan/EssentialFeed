@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import EssentialFeed
 
 internal final class FeedViewAdapter: FeedView {
 

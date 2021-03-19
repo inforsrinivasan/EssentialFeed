@@ -1,15 +1,14 @@
 //
 //  FeedLoadingView.swift
-//  EssentialFeedMVP_iOS
+//  EssentialFeed
 //
 //  Created by Srinivasan Rajendran on 2021-03-17.
 //
 
-
-struct FeedLoadingViewModel {
-    let isLoading: Bool
+public struct FeedLoadingViewModel {
+    public let isLoading: Bool
 }
 
-protocol FeedLoadingView {
+public protocol FeedLoadingView {
     func display(viewModel: FeedLoadingViewModel)
 }

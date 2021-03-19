@@ -1,16 +1,14 @@
 //
 //  FeedView.swift
-//  EssentialFeedMVP_iOS
+//  EssentialFeed
 //
 //  Created by Srinivasan Rajendran on 2021-03-17.
 //
 
-import EssentialFeed
-
-struct FeedViewModel {
-    let feed: [FeedItem]
+public struct FeedViewModel {
+    public let feed: [FeedItem]
 }
 
-protocol FeedView {
+public protocol FeedView {
     func display(viewModel: FeedViewModel)
 }

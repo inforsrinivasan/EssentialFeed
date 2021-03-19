@@ -7,12 +7,12 @@
 
 import Foundation
 import XCTest
-import EssentialFeedMVP_iOS
+import EssentialFeed
 
 extension FeedViewControllerTests {
     func localized(_ key: String, file: StaticString = #filePath, line: UInt = #line) -> String {
         let table = "Feed"
-        let bundle = Bundle(for: FeedViewController.self)
+        let bundle = Bundle(for: FeedPresenter.self)
         let value = bundle.localizedString(forKey: key, value: nil, table: table)
 
         if key == value {
