@@ -12,6 +12,11 @@ public enum HTTPClientResult {
     case failure(Error)
 }
 
+public protocol HTTPClientTask {
+    func cancel()
+}
+
 public protocol HTTPClient {
-    func get(url: URL, completion: @escaping (HTTPClientResult) -> Void)
+    @discardableResult
+    func get(url: URL, completion: @escaping (HTTPClientResult) -> Void) -> HTTPClientTask
 }

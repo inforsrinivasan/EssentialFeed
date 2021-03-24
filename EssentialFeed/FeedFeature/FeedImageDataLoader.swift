@@ -1,8 +1,8 @@
 //
-//  ImageLoader.swift
-//  EssentialFeed_iOS
+//  FeedImageDataLoader.swift
+//  EssentialFeed
 //
-//  Created by Srinivasan Rajendran on 2021-03-03.
+//  Created by Srinivasan Rajendran on 2021-03-20.
 //
 
 import Foundation

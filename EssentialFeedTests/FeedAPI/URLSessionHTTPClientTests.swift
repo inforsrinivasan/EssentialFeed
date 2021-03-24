@@ -10,14 +10,9 @@ import EssentialFeed
 
 class URLSessionHTTPClientTests: XCTestCase {
 
-    override func setUp() {
-        super.setUp()
-        URLProtocolStub.startInterceptingRequests()
-    }
-
     override func tearDown() {
         super.tearDown()
-        URLProtocolStub.stopInterceptingRequests()
+        URLProtocolStub.removeStub()
     }
 
     func test_getFromURL_performsGETRequestWithURL() {
@@ -25,6 +20,7 @@ class URLSessionHTTPClientTests: XCTestCase {
         let exp = expectation(description: "wait for request")
         URLProtocolStub.observeRequests { request in
             XCTAssertEqual(request.url, url)
+            XCTAssertEqual(request.httpMethod, "GET")
             exp.fulfill()
         }
         makeSUT().get(url: url) { _ in }
@@ -88,6 +84,24 @@ class URLSessionHTTPClientTests: XCTestCase {
         wait(for: [exp], timeout: 1.0)
     }
 
+    func test_cancelGetFromURLTask_cancelsURLRequest() {
+        let url = anyURL()
+        let sut = makeSUT()
+
+        let exp = expectation(description: "Wait for request")
+        let task = sut.get(url: url) { result in
+            switch result {
+            case let .failure(error as NSError) where error.code == URLError.cancelled.rawValue:
+                break
+            default:
+                XCTFail("Expected cancelled result, but got \(result) instead")
+            }
+            exp.fulfill()
+        }
+        task.cancel()
+        wait(for: [exp], timeout: 1.0)
+    }
+
     // Helpers
 
     private func resultErrorFor(data: Data?, response: URLResponse?, error: Error?, file: StaticString = #filePath, line: UInt = #line) -> Error? {
@@ -114,67 +128,13 @@ class URLSessionHTTPClientTests: XCTestCase {
     }
 
     private func makeSUT(file: StaticString = #file, line: UInt = #line) -> HTTPClient {
-        let sut = URLSessionHTTPClient()
+        let configuration = URLSessionConfiguration.ephemeral
+        configuration.protocolClasses = [URLProtocolStub.self]
+        let session = URLSession(configuration: configuration)
+
+        let sut = URLSessionHTTPClient(session: session)
         trackForMemoryLeaks(sut, file: file, line: line)
         return sut
-    }
-
-    private class URLProtocolStub: URLProtocol {
-
-        private static var stub: Stub?
-        private static var observer: ((URLRequest) -> Void)?
-
-        private struct Stub {
-            let error: Error?
-            let data: Data?
-            let response: URLResponse?
-        }
-
-        static func observeRequests(completion: @escaping (URLRequest) -> Void) {
-            observer = completion
-        }
-
-        static func startInterceptingRequests() {
-            URLProtocol.registerClass(URLProtocolStub.self)
-        }
-
-        static func stopInterceptingRequests() {
-            URLProtocol.unregisterClass(URLProtocolStub.self)
-            observer = nil 
-            stub = nil
-        }
-
-        class func stub(data: Data?, response: URLResponse?, error: Error?) {
-            stub = Stub(error: error, data: data, response: response)
-        }
-
-        override class func canInit(with request: URLRequest) -> Bool {
-            observer?(request)
-            return true
-        }
-
-        override class func canonicalRequest(for request: URLRequest) -> URLRequest {
-            return request
-        }
-
-        override func startLoading() {
-
-            if let data = URLProtocolStub.stub?.data {
-                client?.urlProtocol(self, didLoad: data)
-            }
-
-            if let response = URLProtocolStub.stub?.response {
-                client?.urlProtocol(self, didReceive: response, cacheStoragePolicy: .notAllowed)
-            }
-
-            if let error = URLProtocolStub.stub?.error {
-                client?.urlProtocol(self, didFailWithError: error)
-            }
-            client?.urlProtocolDidFinishLoading(self)
-        }
-
-        override func stopLoading() {}
-
     }
 
 }
