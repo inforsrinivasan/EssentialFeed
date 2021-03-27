@@ -8,18 +8,6 @@
 import XCTest
 import EssentialFeed
 
-extension CoreDataFeedStore {
-
-    public func insert(_ data: Data, for url: URL, completion: @escaping (FeedImageDataStore.InsertionResult) -> Void) {
-
-    }
-
-    public func retrieve(dataForURL url: URL, completion: @escaping (FeedImageDataStore.RetreivalResult) -> Void) {
-        completion(.success(.none))
-    }
-
-}
-
 final class CoreDataFeedImageDataStoreTests: XCTestCase {
 
     func test_retrieveImageData_deliversNotFoundWhenEmpty() {
@@ -37,12 +25,51 @@ final class CoreDataFeedImageDataStoreTests: XCTestCase {
         expect(sut, toCompleteRetrievalWith: .success(.none), for: nonMatchingURL)
     }
 
+    func test_retrieveImageData_deliversFoundDataWhenThereIsAStoredImageDataMatchingURL() {
+        let sut = makeSUT()
+        let storedData = anyData()
+        let matchingURL = URL(string: "http://a-url.com")!
+
+        insert(storedData, for: matchingURL, into: sut)
+        expect(sut, toCompleteRetrievalWith: .success(storedData), for: matchingURL)
+    }
+
+    func test_retrieveImageData_deliversLastInsertedValue() {
+        let sut = makeSUT()
+        let firstStoredData = Data("first".utf8)
+        let lastStoredData = Data("last".utf8)
+
+        let url = URL(string: "https://a-url.com")!
+
+        insert(firstStoredData, for: url, into: sut)
+        insert(lastStoredData, for: url, into: sut)
+
+        expect(sut, toCompleteRetrievalWith: .success(lastStoredData), for: url)
+    }
+
+    func test_sideEffects_runSerially() {
+        let sut = makeSUT()
+        let url = anyURL()
+
+        let op1 = expectation(description: "Operation 1")
+        sut.insertFeed(feed: [localImage(url: url)], timestamp: Date()) { _ in
+            op1.fulfill()
+        }
+
+        let op2 = expectation(description: "Operation 2")
+        sut.insert(anyData(), for: url) { _ in    op2.fulfill() }
+
+        let op3 = expectation(description: "Operation 3")
+        sut.insert(anyData(), for: url) { _ in op3.fulfill() }
+
+        wait(for: [op1, op2, op3], timeout: 5.0, enforceOrder: true)
+    }
+
     // helpers
 
     private func makeSUT(file: StaticString = #file, line: UInt = #line) -> CoreDataFeedStore {
-        let storeBundle = Bundle(for: CoreDataFeedStore.self)
         let storeURL = URL(fileURLWithPath: "/dev/null")
-        let sut = try! CoreDataFeedStore(storeURL: storeURL, bundle: storeBundle)
+        let sut = try! CoreDataFeedStore(storeURL: storeURL)
         trackForMemoryLeaks(sut, file: file, line: line)
         return sut
     }
@@ -72,14 +99,15 @@ final class CoreDataFeedImageDataStoreTests: XCTestCase {
         sut.insertFeed(feed: [image], timestamp: Date()) { error in
             if let error = error {
                 XCTFail("Failed to save \(image) with error \(error)", file: file, line: line)
+                exp.fulfill()
             } else {
                 sut.insert(data, for: url) { result in
                     if case let Result.failure(error) = result {
                         XCTFail("Failed to insert \(data) with error \(error)", file: file, line: line)
                     }
+                    exp.fulfill()
                 }
             }
-            exp.fulfill()
         }
         wait(for: [exp], timeout: 1.0)
     }
