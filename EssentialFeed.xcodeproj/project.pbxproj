@@ -58,6 +58,8 @@
 		FF555EBA2602AE8900FB192F /* FeedImagePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF555EB92602AE8900FB192F /* FeedImagePresenter.swift */; };
 		FF555EC42602AEB500FB192F /* FeedImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF555EC32602AEB500FB192F /* FeedImageView.swift */; };
 		FF555EE52602B04400FB192F /* FeedLocalizationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFF278C225FAA95E0080DF7A /* FeedLocalizationTests.swift */; };
+		FF619604261646AD0073E46E /* FeedCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF619603261646AD0073E46E /* FeedCache.swift */; };
+		FF619616261652250073E46E /* FeedImageDataCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF619615261652250073E46E /* FeedImageDataCache.swift */; };
 		FF63EB0A25D48CA50047F21D /* FeedStoreSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF63EB0925D48CA50047F21D /* FeedStoreSpy.swift */; };
 		FF6F308725FE57D70038C594 /* MainQueueDispatchDecorator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF6F308625FE57D70038C594 /* MainQueueDispatchDecorator.swift */; };
 		FF6F309125FE582B0038C594 /* WeakRefVirtualProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF6F309025FE582B0038C594 /* WeakRefVirtualProxy.swift */; };
@@ -303,6 +305,8 @@
 		FF555E972602ACFB00FB192F /* FeedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedView.swift; sourceTree = "<group>"; };
 		FF555EB92602AE8900FB192F /* FeedImagePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedImagePresenter.swift; sourceTree = "<group>"; };
 		FF555EC32602AEB500FB192F /* FeedImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedImageView.swift; sourceTree = "<group>"; };
+		FF619603261646AD0073E46E /* FeedCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCache.swift; sourceTree = "<group>"; };
+		FF619615261652250073E46E /* FeedImageDataCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedImageDataCache.swift; sourceTree = "<group>"; };
 		FF63EB0925D48CA50047F21D /* FeedStoreSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedStoreSpy.swift; sourceTree = "<group>"; };
 		FF6F308625FE57D70038C594 /* MainQueueDispatchDecorator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainQueueDispatchDecorator.swift; sourceTree = "<group>"; };
 		FF6F309025FE582B0038C594 /* WeakRefVirtualProxy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeakRefVirtualProxy.swift; sourceTree = "<group>"; };
@@ -662,7 +666,9 @@
 			children = (
 				FF1D1FCD25BE0DAC00DC1D53 /* FeedItem.swift */,
 				FF1D1FD125BE0DFE00DC1D53 /* FeedLoader.swift */,
+				FF619603261646AD0073E46E /* FeedCache.swift */,
 				FFB7D24B2605F3AA008191BB /* FeedImageDataLoader.swift */,
+				FF619615261652250073E46E /* FeedImageDataCache.swift */,
 			);
 			path = FeedFeature;
 			sourceTree = "<group>";
@@ -1464,6 +1470,7 @@
 				FF1D1FD225BE0DFE00DC1D53 /* FeedLoader.swift in Sources */,
 				FF0A92EA25D87EAA00B8BA1D /* FeedCachePolicy.swift in Sources */,
 				FF555E842602ACC700FB192F /* FeedLoadingView.swift in Sources */,
+				FF619604261646AD0073E46E /* FeedCache.swift in Sources */,
 				FF1D1FDF25BE19C900DC1D53 /* RemoteFeedLoader.swift in Sources */,
 				FFD4577E25D08407006B82DA /* FeedStore.swift in Sources */,
 				FFB7D7C8260D19E4008191BB /* CoreDataFeedStore+FeedStore.swift in Sources */,
@@ -1479,6 +1486,7 @@
 				FFB7D5E8260BD2C3008191BB /* ManagedCache.swift in Sources */,
 				FF555E982602ACFB00FB192F /* FeedView.swift in Sources */,
 				FF0A94F625DC1D3900B8BA1D /* CodableFeedStore.swift in Sources */,
+				FF619616261652250073E46E /* FeedImageDataCache.swift in Sources */,
 				FF1D1FCE25BE0DAC00DC1D53 /* FeedItem.swift in Sources */,
 				FF70889125CA0668001797EA /* URLSessionHTTPClient.swift in Sources */,
 				FF555E692602AB7000FB192F /* FeedPresenter.swift in Sources */,
