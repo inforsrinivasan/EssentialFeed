@@ -89,6 +89,7 @@ Labe1</string>
                                                     <subviews>
                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="tig-dn-lGm">
                                                             <rect key="frame" x="0.0" y="0.0" width="374" height="374"/>
+                                                            <accessibility key="accessibilityConfiguration" identifier="feed-image-view"/>
                                                         </imageView>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FJa-Ml-DNd" userLabel="retry">
                                                             <rect key="frame" x="0.0" y="0.0" width="374" height="374"/>
@@ -148,6 +149,7 @@ Kwhfgierwg. Worgowg were</string>
                                         <constraint firstItem="97n-FV-aZM" firstAttribute="leading" secondItem="07T-q6-JO6" secondAttribute="leadingMargin" id="zia-Y8-S6d"/>
                                     </constraints>
                                 </tableViewCellContentView>
+                                <accessibility key="accessibilityConfiguration" identifier="feed-image-cell"/>
                                 <connections>
                                     <outlet property="descriptionLabel" destination="gel-sc-uj0" id="wha-eR-2bO"/>
                                     <outlet property="feedImageContainer" destination="rVh-Wt-01j" id="wkG-Vf-v67"/>
