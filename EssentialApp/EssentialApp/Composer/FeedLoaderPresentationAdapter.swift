@@ -6,6 +6,7 @@
 //
 
 import EssentialFeed
+import EssentialFeedMVP_iOS
 
 internal final class FeedLoaderPresentationAdapter: FeedViewControllerDelegate {
 
