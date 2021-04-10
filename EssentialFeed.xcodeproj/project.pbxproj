@@ -38,6 +38,8 @@
 		FF1D1FD925BE10CE00DC1D53 /* RemoteFeedLoaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1D1FD825BE10CE00DC1D53 /* RemoteFeedLoaderTests.swift */; };
 		FF1D1FDF25BE19C900DC1D53 /* RemoteFeedLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1D1FDE25BE19C900DC1D53 /* RemoteFeedLoader.swift */; };
 		FF31C3612621AACA007EF67D /* FeedSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF31C3602621AACA007EF67D /* FeedSnapshotTests.swift */; };
+		FF31C3752621BC4B007EF67D /* UIViewController+Snapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF31C3742621BC4B007EF67D /* UIViewController+Snapshot.swift */; };
+		FF31C3902621BCC7007EF67D /* XCTestCase+Snapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF31C38F2621BCC7007EF67D /* XCTestCase+Snapshot.swift */; };
 		FF45199B25F0242000F84FEE /* EssentialFeedMultipleMVC_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FF45199225F0242000F84FEE /* EssentialFeedMultipleMVC_iOS.framework */; platformFilter = maccatalyst; };
 		FF4519B025F0244500F84FEE /* EssentialFeed.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FF1D1FA725BE0C2F00DC1D53 /* EssentialFeed.framework */; };
 		FF4519B125F0244500F84FEE /* EssentialFeed.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = FF1D1FA725BE0C2F00DC1D53 /* EssentialFeed.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -271,6 +273,8 @@
 		FF1D1FD825BE10CE00DC1D53 /* RemoteFeedLoaderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteFeedLoaderTests.swift; sourceTree = "<group>"; };
 		FF1D1FDE25BE19C900DC1D53 /* RemoteFeedLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteFeedLoader.swift; sourceTree = "<group>"; };
 		FF31C3602621AACA007EF67D /* FeedSnapshotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedSnapshotTests.swift; sourceTree = "<group>"; };
+		FF31C3742621BC4B007EF67D /* UIViewController+Snapshot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Snapshot.swift"; sourceTree = "<group>"; };
+		FF31C38F2621BCC7007EF67D /* XCTestCase+Snapshot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+Snapshot.swift"; sourceTree = "<group>"; };
 		FF45196725F01E4100F84FEE /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FF45199225F0242000F84FEE /* EssentialFeedMultipleMVC_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = EssentialFeedMultipleMVC_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FF45199525F0242000F84FEE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -660,6 +664,15 @@
 			path = FeedAPI;
 			sourceTree = "<group>";
 		};
+		FF31C37E2621BC56007EF67D /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				FF31C3742621BC4B007EF67D /* UIViewController+Snapshot.swift */,
+				FF31C38F2621BCC7007EF67D /* XCTestCase+Snapshot.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
 		FF45199325F0242000F84FEE /* EssentialFeedMultipleMVC_iOS */ = {
 			isa = PBXGroup;
 			children = (
@@ -845,6 +858,7 @@
 			children = (
 				FFBC913025F6A612007AC478 /* Info.plist */,
 				FF31C3602621AACA007EF67D /* FeedSnapshotTests.swift */,
+				FF31C37E2621BC56007EF67D /* Helpers */,
 			);
 			path = EssentialFeedMVP_iOSTests;
 			sourceTree = "<group>";
@@ -1539,6 +1553,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				FFBC921225F6A80F007AC478 /* XCTestCase+MemoryLeakTracking.swift in Sources */,
+				FF31C3752621BC4B007EF67D /* UIViewController+Snapshot.swift in Sources */,
+				FF31C3902621BCC7007EF67D /* XCTestCase+Snapshot.swift in Sources */,
 				FF31C3612621AACA007EF67D /* FeedSnapshotTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
